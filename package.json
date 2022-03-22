@@ -1,0 +1,36 @@
+{
+  "name": "metaslotplay",
+  "version": "1.0.0",
+  "main": "main.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@typechain/hardhat": "^5.0.0",
+    "@types/mocha": "^9.1.0",
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.0",
+    "ethereum-waffle": "^4.0.0-alpha.0",
+    "hardhat": "^2.9.1",
+    "hardhat-abi-exporter": "^2.8.0",
+    "hardhat-deploy": "^0.11.0",
+    "hardhat-deploy-ethers": "^0.3.0-beta.13",
+    "hardhat-gas-reporter": "^1.0.8",
+    "mocha": "^9.2.2",
+    "solidity-coverage": "^0.7.20",
+    "ts-node": "^10.7.0",
+    "typechain": "^7.0.1",
+    "typescript": "^4.6.2",
+    "web3": "^1.7.1"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.5.0"
+  },
+  "scripts": {
+    "compile": "hardhat compile --force",
+    "deploy": "hardhat deploy --network ropsten --tags dep",
+    "build": "waffle",
+    "clean": "hardhat clean"
+  }
+}
