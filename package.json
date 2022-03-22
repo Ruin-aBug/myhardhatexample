@@ -30,7 +30,7 @@
   "scripts": {
     "compile": "hardhat compile --force",
     "deploy": "hardhat deploy --network ropsten --tags dep",
-    "build": "waffle",
-    "clean": "hardhat clean"
+    "clean": "hardhat clean",
+    "build": "waffle"
   }
 }

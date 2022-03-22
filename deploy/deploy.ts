@@ -6,16 +6,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log(hre.network.name)
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  // const Greeter = await deploy("Greeter", {
-  //   from: deployer,
-  //   args: ["hello"],
-  //   log: true
-  // })
-  const Greeter = await deploy("TestConverData", {
+  const Greeter = await deploy("Greeter", {
     from: deployer,
+    args: ["hello"],
     log: true
   })
-  console.log(Greeter);
+
+  console.log(Greeter.address);
 };
 
 export default func;
