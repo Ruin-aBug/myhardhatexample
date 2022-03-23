@@ -6,18 +6,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deploy, get } = deployments;
     const { deployer } = await getNamedAccounts();
     console.log(deployer)
-    try {
-        const ERC20USDT = await get("ERC20USDT");
-        console.log(ERC20USDT.address);
-    } catch (error) {
-        const ERC20USDT = await deploy('ERC20USDT', {
-            from: deployer,
-            log: true,
-        });
-        console.log(ERC20USDT.address);
-    }
-
+    
+    const ERC20USDT = await deploy('ERC20USDT', {
+        from: deployer,
+        log: true,
+    });
+    console.log(ERC20USDT.address);
 };
 export default func;
-func.tags = ["Tokens"];
+func.tags = ["USDT"];
 

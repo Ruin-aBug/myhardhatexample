@@ -7,18 +7,17 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts } = hre;
     console.log(hre.network.name);
 
-    const amount = Web3.utils.toWei("20");
+    const amount = Web3.utils.toWei("200");
     const { deploy, get } = deployments;
     const { deployer } = await getNamedAccounts();
     const Token = await get("ERC20USDT");
-    const web3 = new Web3;
-    // const GlodToken = await deploy("GlodToken", {
-    //     from: deployer,
-    //     args: [amount, Token.address],
-    //     log: true
-    // })
+    const GlodToken = await deploy("GlodToken", {
+        from: deployer,
+        args: [amount, Token.address],
+        log: true
+    })
 
-    // console.log(GlodToken.address);
+    console.log(GlodToken.address);
 };
 
 export default func;
