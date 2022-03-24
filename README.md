@@ -1,46 +1,70 @@
-# Advanced Sample Hardhat Project
+# HardHat + Typescrip 项目
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+该项目是主要技术有hardhat + typescript + waffle + mocha的智能合约编写、测试和部署的初始化项目。
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+你可以在` contracts`目录中直接进行合约编写，然后在` deploy`目录编写部署文件即可。
 
-Try running some of the following tasks:
+项目具体使用方法:
 
-```shell
-yarn hardhat accounts
-yarn hardhat compile
-yarn hardhat clean
-yarn hardhat test
-yarn hardhat node
-yarn hardhat help
-REPORT_GAS=true yarn hardhat test
-yarn hardhat coverage
-yarn hardhat run scripts/deploy.ts
-TS_NODE_FILES=true yarn ts-node scripts/deploy.ts
-yarn eslint '**/*.{js,ts}'
-yarn eslint '**/*.{js,ts}' --fix
-yarn prettier '**/*.{json,sol,md}' --check
-yarn prettier '**/*.{json,sol,md}' --write
-yarn solhint 'contracts/**/*.sol'
-yarn solhint 'contracts/**/*.sol' --fix
-```
+1. clone项目后直接运行
 
-# Etherscan verification
+   ``` shell
+   yarn
+   或
+   npm install
+   ```
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
+   注："ethereum-waffle" 包有的时候yarn安装不了，可以单独使用npm进行安装。
 
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
+2. 编写配置
 
-```shell
-hardhat run --network ropsten scripts/deploy.ts
-```
+   1. 在项目根目录新建` .env`文件，将` .env.example`中的内容拷贝进去，修改为自己的配置
 
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
+      ``` shell
+      ETHERSCAN_API_KEY=##etherscan的API，用不到可以不填
+      ROPSTEN_URL=## 所用的网络RPC URL
+      PRIVATE_KEY= ## 钱包私钥
+      ```
 
-```shell
-yarn hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
+   2. hardhat.config.ts配置文件
 
-# Performance optimizations
+      这个文件是hardhat的主要配置文件，可进行solidity编译版本、网络、插件安装等等配置。
 
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+   3. waffle.json配置用waffle编译时的版本，主要用于测试时
+
+3. 合约编译
+
+   hardhat编译
+
+   ```she
+   yarn hardhat compile
+   ```
+
+   waffle编译
+
+   ```shell
+   yarn waffle
+   ```
+
+4. 测试
+
+   在` test`目录下编写相关测试用例后，运行
+
+   ```shell
+   yarn test
+   或
+   yarn mocha
+   ```
+
+5. 合约部署
+
+   这里使用的是hardhat-deploy插件进行合约部署，所以应该在`deploy`目录下编写相关部署文件，然后运行命令
+
+   ```SHELL
+   yarn hardhat deploy --network networkname --tags TagsName
+   ```
+
+   - --network：所要部署到的网络名称，如：mainnet、ropsten等；
+   - --tags：这是在deploy文件中进行指定的，可以看我的`packege.json`中script 的deploy命令和deploy文件。
+
+到这里整个智能合约的测试部署已经基本完成了。。。。

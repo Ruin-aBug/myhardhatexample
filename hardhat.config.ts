@@ -7,7 +7,6 @@ import "@typechain/hardhat";
 import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
 import "hardhat-gas-reporter";
-import "hardhat-abi-exporter";
 import "solidity-coverage";
 
 dotenv.config();
@@ -17,8 +16,7 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   namedAccounts: {
-    deployer: 0,
-    dev: 1
+    deployer: 0
   },
   typechain: {
     outDir: "types"
@@ -33,7 +31,7 @@ const config: HardhatUserConfig = {
             runs: 200
           }
         }
-      },{
+      }, {
         version: "0.8.1",
         settings: {
           optimizer: {
@@ -41,7 +39,7 @@ const config: HardhatUserConfig = {
             runs: 200
           }
         }
-      },{
+      }, {
         version: "0.5.16",
         settings: {
           optimizer: {
@@ -61,8 +59,8 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
       chainId: 3,
-      live:true,
-      saveDeployments:true,
+      live: true,
+      saveDeployments: true,
     },
   },
   gasReporter: {
@@ -71,12 +69,6 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
-  },
-  abiExporter: {
-    path: "./data/abi",
-    clear: true,
-    flat: true,
-    only: ["Greeter"],
   }
 };
 
