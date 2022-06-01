@@ -1,49 +1,36 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect, use } from "chai";
 import { ethers } from "hardhat";
-import {
-  deployContract,
-  deployMockContract,
-  MockContract,
-  MockProvider,
-  solidity,
-} from "ethereum-waffle";
-import ERC20USDT from "../build/ERC20USDT.json";
-import GlodToken from "../build/GlodToken.json";
-import { Contract, Wallet } from "ethers";
+import { RuinToken } from "../types";
 
-use(solidity);
+let wallet: SignerWithAddress;
+let ruinToken: RuinToken;
+let owner: string;
+beforeEach(async () => {
+	[wallet] = await ethers.getSigners();
+	const RuinTokenFactory = await ethers.getContractFactory("RuinToken");
+	ruinToken = (await RuinTokenFactory.deploy(ethers.utils.formatEther(10))) as RuinToken;
+})
 
-describe("Glod", function () {
-  let wallet: Wallet;
-  let USDT: Contract;
-  let glodToken: Contract;
-  beforeEach(async () => {
-    [wallet] = new MockProvider().getWallets();
-    USDT = await deployContract(wallet, ERC20USDT);
-    glodToken = await deployContract(wallet, GlodToken, [ethers.utils.parseEther("10000"), USDT.address]);
-  })
-  it("name/symbol/totalSupply", async function () {
-    console.log("GlodToken::", glodToken.address);
-    const name = await glodToken.name();
-    const symbol = await glodToken.symbol();
-    const totalSupply = await glodToken.totalSupply();
-    console.log("name::", name)
-    console.log("symbol::", symbol);
-    console.log("totalSupply::", totalSupply.toString());
-    console.log("MAMA::", await glodToken.MANA());
-    console.log("USDT balance::",ethers.utils.formatEther(await glodToken.balanceOf(wallet.address)).toString());
-    console.log("USDT balance::",ethers.utils.formatEther(await USDT.balanceOf(wallet.address)).toString());
-  });
+describe("RuinToken", function () {
+	it("name/symbol/totalSupply", async function () {
+		console.log("token address::", ruinToken.address);
+		owner = await ruinToken.owner();
+		const name = await ruinToken.name();
+		const symbol = await ruinToken.symbol();
+		const totalSupply = await ruinToken.totalSupply();
+		console.log("owner::", owner)
+		console.log("name::", name)
+		console.log("symbol::", symbol);
+		console.log("totalSupply::", totalSupply.toString());
+		console.log("RUIN balance::", ethers.utils.formatEther(await ruinToken.balanceOf(wallet.address)).toString());
+	});
 
-  it("approve", async function () {
-    // const res = await USDT.approve(glodToken.address,ethers.utils.parseEther("1000"));
-  })
-
-  it("exchange", async function () {
-    await USDT.approve(glodToken.address,ethers.utils.parseEther("1000"));
-    const res = await glodToken.exchange(wallet.address, ethers.utils.parseEther("220"))
-    console.log(res);
-    console.log("USDT balance::",ethers.utils.formatEther(await glodToken.balanceOf(wallet.address)).toString());
-    console.log("USDT balance::",ethers.utils.formatEther(await USDT.balanceOf(wallet.address)).toString());
-  })
+	it("exchange", async function () {
+		await ruinToken.transfer(ruinToken.address, ethers.utils.parseEther("10"))
+		await ruinToken.approve(owner, ethers.utils.parseEther("1000"));
+		await ruinToken.transferFrom(wallet.address, ruinToken.address, ethers.utils.parseEther("10"));
+		console.log("my balance::", ethers.utils.formatEther(await ruinToken.balanceOf(wallet.address)).toString());
+		console.log("contract balance::", ethers.utils.formatEther(await ruinToken.balanceOf(ruinToken.address)).toString())
+	})
 });
