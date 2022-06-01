@@ -25,8 +25,8 @@ describe("testestestestest", async () => {
 	it("testsetestset", async () => {
 		const ownerBalance = await ethers.provider.getBalance(owner.address);
 		const contractBalance = await ethers.provider.getBalance(moneyDemo.address);
-		console.log("balance1", ethers.utils.formatEther(ownerBalance));
-		console.log("balance2", contractBalance);
+		console.log("owner balance", ethers.utils.formatEther(ownerBalance));
+		console.log("contract balance", contractBalance);
 
 		const nonce = await owner.getTransactionCount();
 		const tx = {
@@ -42,7 +42,16 @@ describe("testestestestest", async () => {
 		const balance = await ethers.provider.getBalance(moneyDemo.address);
 		console.log(ethers.utils.formatEther(balance));
 
-		await moneyDemo.transferMoney(ethers.utils.parseEther("10"))
+
+		const userlist = [
+			{ addr: account1, num: 2 },
+			{ addr: account2, num: 3 },
+			{ addr: account3, num: 4 },
+			{ addr: account4, num: 1 }
+		];
+
+		await moneyDemo.transferMoney(ethers.utils.parseEther("10"), userlist);
+
 		const balance1 = await ethers.provider.getBalance(account1);
 		const balance2 = await ethers.provider.getBalance(account2);
 		const balance3 = await ethers.provider.getBalance(account3);
@@ -53,5 +62,13 @@ describe("testestestestest", async () => {
 		console.log("balance3:", ethers.utils.formatEther(balance3));
 		console.log("balance4:", ethers.utils.formatEther(balance4));
 
+		const balanceowner = await ethers.provider.getBalance(owner.address);
+		console.log(ethers.utils.formatEther(balanceowner));
+
+		const balanceend = await ethers.provider.getBalance(moneyDemo.address);
+		console.log(ethers.utils.formatEther(balanceend));
+
+		const b = await moneyDemo.checkownermoney();
+		console.log(b)
 	})
 })

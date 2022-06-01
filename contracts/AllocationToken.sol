@@ -15,16 +15,16 @@ contract AllocationToken {
         require(useradmin[_address],"you can not do this");
         _;
     }
-    User[] internal userlist;
-    function transferMoney(uint _amount) external checkadmin(msg.sender) {
+    // User[] internal userlist;
+    function transferMoney(uint _amount, User[] memory userlist) external checkadmin(msg.sender) {
         uint money = checkownermoney();
         require(money >= 1000000000000000000 && _amount <= money);
-        userlist.push(User(payable(0x1aE0EA34a72D944a8C7603FfB3eC30a6669E454C),_amount * 2 / 10));
-        userlist.push(User(payable(0x0A098Eda01Ce92ff4A4CCb7A4fFFb5A43EBC70DC),_amount * 3 / 10));
-        userlist.push(User(payable(0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c),_amount * 4 / 10));
-        userlist.push(User(payable(0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB),_amount * 1 / 10));
+        // userlist.push(User(payable(0x1aE0EA34a72D944a8C7603FfB3eC30a6669E454C),_amount * 2 / 10));
+        // userlist.push(User(payable(0x0A098Eda01Ce92ff4A4CCb7A4fFFb5A43EBC70DC),_amount * 3 / 10));
+        // userlist.push(User(payable(0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c),_amount * 4 / 10));
+        // userlist.push(User(payable(0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB),_amount * 1 / 10));
         for(uint i = 0; i < userlist.length;i++ ){
-            userlist[i].addr.transfer(userlist[i].num);
+            userlist[i].addr.transfer(_amount * userlist[i].num / 10);
         }
     }
     
