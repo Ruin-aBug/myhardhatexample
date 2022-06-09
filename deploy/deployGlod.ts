@@ -1,6 +1,5 @@
 import { DeployFunction } from "hardhat-deploy/dist/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import BigNumber from "bignumber.js";
 import Web3 from "web3";
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
