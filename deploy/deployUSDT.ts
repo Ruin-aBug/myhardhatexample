@@ -5,7 +5,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts } = hre;
     const { deploy, get } = deployments;
     const { deployer } = await getNamedAccounts();
-    console.log(deployer);
 
     const ERC20USDT = await deploy("ERC20USDT", {
         from: deployer,
@@ -13,5 +12,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     });
     console.log(ERC20USDT.address);
 };
+
 export default func;
 func.tags = ["USDT"];

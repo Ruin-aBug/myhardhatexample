@@ -13,6 +13,7 @@ describe("RuinToken", function () {
 
         return { wallet, ruinToken };
     }
+
     it("name/symbol/totalSupply", async function () {
         const { ruinToken, wallet } = await loadFixture(deployContract);
 
