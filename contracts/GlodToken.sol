@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-// import "./librarys/TransferHelper.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract GlodToken is ERC20 {
@@ -39,12 +38,7 @@ contract GlodToken is ERC20 {
     function exchange(address account, uint256 amount) public {
         require(account != address(0), "account is zero");
         require(amount > 0, "amount 0");
-        SafeERC20.safeTransferFrom(
-            MANA,
-            msg.sender,
-            address(this),
-            amount
-        );
+        SafeERC20.safeTransferFrom(MANA, msg.sender, address(this), amount);
         _mint(account, amount);
     }
 }

@@ -3,14 +3,14 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts } = hre;
-    console.log(hre.network.name)
+    console.log(hre.network.name);
     const { deploy } = deployments;
     // 这里的deployer就是hardhat.confit.ts中namedAccounts下deployer，由.env下配置的私钥生成
-    const { deployer } = await getNamedAccounts(); 
+    const { deployer } = await getNamedAccounts();
     const FMG1 = await deploy("FMG1", {
         from: deployer,
-        log: true
-    })
+        log: true,
+    });
 
     console.log(FMG1.address);
 };

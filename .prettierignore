@@ -1,5 +1,18 @@
 node_modules
-artifacts
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+#Hardhat files
 cache
-coverage*
-gasReporterOutput.json
+artifacts
+types
+deployments
+gas-reporter.txt
+.openzeppelin
+.history
+
+
+

@@ -39,9 +39,10 @@ interface IERC20 {
      *
      * Emits a {Transfer} event.
      */
-    function transfer(address recipient, uint256 amount)
-        external
-        returns (bool);
+    function transfer(
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
 
     /**
      * @dev Returns the remaining number of tokens that `spender` will be
@@ -50,10 +51,10 @@ interface IERC20 {
      *
      * This value changes when {approve} or {transferFrom} are called.
      */
-    function allowance(address _owner, address spender)
-        external
-        view
-        returns (uint256);
+    function allowance(
+        address _owner,
+        address spender
+    ) external view returns (uint256);
 
     /**
      * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -393,42 +394,44 @@ contract ERC20USDT is Context, IERC20, Ownable {
     /**
      * @dev Returns the ERC token owner.
      */
-    function getOwner() override external view returns (address) {
+    function getOwner() external view override returns (address) {
         return owner();
     }
 
     /**
      * @dev Returns the token decimals.
      */
-    function decimals() override external view returns (uint8) {
+    function decimals() external view override returns (uint8) {
         return _decimals;
     }
 
     /**
      * @dev Returns the token symbol.
      */
-    function symbol() override external view returns (string memory) {
+    function symbol() external view override returns (string memory) {
         return _symbol;
     }
 
     /**
      * @dev Returns the token name.
      */
-    function name() override external view returns (string memory) {
+    function name() external view override returns (string memory) {
         return _name;
     }
 
     /**
      * @dev See {ERC20-totalSupply}.
      */
-    function totalSupply() override external view returns (uint256) {
+    function totalSupply() external view override returns (uint256) {
         return _totalSupply;
     }
 
     /**
      * @dev See {ERC20-balanceOf}.
      */
-    function balanceOf(address account) override external view returns (uint256) {
+    function balanceOf(
+        address account
+    ) external view override returns (uint256) {
         return _balances[account];
     }
 
@@ -440,11 +443,10 @@ contract ERC20USDT is Context, IERC20, Ownable {
      * - `recipient` cannot be the zero address.
      * - the caller must have a balance of at least `amount`.
      */
-    function transfer(address recipient, uint256 amount)
-        override
-        external
-        returns (bool)
-    {
+    function transfer(
+        address recipient,
+        uint256 amount
+    ) external override returns (bool) {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
@@ -452,12 +454,10 @@ contract ERC20USDT is Context, IERC20, Ownable {
     /**
      * @dev See {ERC20-allowance}.
      */
-    function allowance(address owner, address spender)
-        override
-        external
-        view
-        returns (uint256)
-    {
+    function allowance(
+        address owner,
+        address spender
+    ) external view override returns (uint256) {
         return _allowances[owner][spender];
     }
 
@@ -468,7 +468,10 @@ contract ERC20USDT is Context, IERC20, Ownable {
      *
      * - `spender` cannot be the zero address.
      */
-    function approve(address spender, uint256 amount) override external returns (bool) {
+    function approve(
+        address spender,
+        uint256 amount
+    ) external override returns (bool) {
         _approve(_msgSender(), spender, amount);
         return true;
     }
@@ -489,7 +492,7 @@ contract ERC20USDT is Context, IERC20, Ownable {
         address sender,
         address recipient,
         uint256 amount
-    ) override external returns (bool) {
+    ) external override returns (bool) {
         _transfer(sender, recipient, amount);
         _approve(
             sender,
@@ -514,10 +517,10 @@ contract ERC20USDT is Context, IERC20, Ownable {
      *
      * - `spender` cannot be the zero address.
      */
-    function increaseAllowance(address spender, uint256 addedValue)
-        public
-        returns (bool)
-    {
+    function increaseAllowance(
+        address spender,
+        uint256 addedValue
+    ) public returns (bool) {
         _approve(
             _msgSender(),
             spender,
@@ -540,10 +543,10 @@ contract ERC20USDT is Context, IERC20, Ownable {
      * - `spender` must have allowance for the caller of at least
      * `subtractedValue`.
      */
-    function decreaseAllowance(address spender, uint256 subtractedValue)
-        public
-        returns (bool)
-    {
+    function decreaseAllowance(
+        address spender,
+        uint256 subtractedValue
+    ) public returns (bool) {
         _approve(
             _msgSender(),
             spender,
@@ -658,11 +661,7 @@ contract ERC20USDT is Context, IERC20, Ownable {
      * - `owner` cannot be the zero address.
      * - `spender` cannot be the zero address.
      */
-    function _approve(
-        address owner,
-        address spender,
-        uint256 amount
-    ) internal {
+    function _approve(address owner, address spender, uint256 amount) internal {
         require(owner != address(0), "ERC20: approve from the zero address");
         require(spender != address(0), "ERC20: approve to the zero address");
 

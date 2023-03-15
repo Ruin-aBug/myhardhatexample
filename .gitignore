@@ -5,6 +5,7 @@ coverage.json
 typechain
 build
 yarn.lock
+.history
 
 #Hardhat files
 cache

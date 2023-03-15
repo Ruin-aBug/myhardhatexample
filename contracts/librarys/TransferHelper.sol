@@ -31,7 +31,10 @@ interface IERC20 {
      *
      * This value changes when {approve} or {transferFrom} are called.
      */
-    function allowance(address owner, address spender) external view returns (uint256);
+    function allowance(
+        address owner,
+        address spender
+    ) external view returns (uint256);
 
     /**
      * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
@@ -76,25 +79,21 @@ interface IERC20 {
      * @dev Emitted when the allowance of a `spender` for an `owner` is set by
      * a call to {approve}. `value` is the new allowance.
      */
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 }
 
 library TransferHelper {
-    function safeApprove(
-        address token,
-        address to,
-        uint256 value
-    ) internal {
+    function safeApprove(address token, address to, uint256 value) internal {
         try IERC20(token).approve(to, value) {} catch {
             revert("Appro_Failed");
         }
     }
 
-    function safeTransfer(
-        address token,
-        address to,
-        uint256 value
-    ) internal {
+    function safeTransfer(address token, address to, uint256 value) internal {
         try IERC20(token).transfer(to, value) {} catch {
             revert("Transfer_Failed");
         }

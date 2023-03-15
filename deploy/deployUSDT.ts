@@ -1,13 +1,13 @@
-import { HardhatRuntimeEnvironment } from 'hardhat/types/runtime';
-import { DeployFunction } from 'hardhat-deploy/types';
+import { HardhatRuntimeEnvironment } from "hardhat/types/runtime";
+import { DeployFunction } from "hardhat-deploy/types";
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts } = hre;
     const { deploy, get } = deployments;
     const { deployer } = await getNamedAccounts();
-    console.log(deployer)
-    
-    const ERC20USDT = await deploy('ERC20USDT', {
+    console.log(deployer);
+
+    const ERC20USDT = await deploy("ERC20USDT", {
         from: deployer,
         log: true,
     });
@@ -15,4 +15,3 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 };
 export default func;
 func.tags = ["USDT"];
-

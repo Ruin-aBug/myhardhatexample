@@ -13,8 +13,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const GlodToken = await deploy("GlodToken", {
         from: deployer,
         args: [amount, Token.address],
-        log: true
-    })
+        log: true,
+    });
 
     console.log(GlodToken.address);
 };
